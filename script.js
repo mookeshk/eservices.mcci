@@ -6,6 +6,7 @@ const defaultDocData = {
     requestNumber: "13533341",
     requestType: "طلب مفتوح",
     applicantName: "طارق دك أسد زنون",
+    jobTitle: "محاسب عام",
     creationDate: "07/25/2026 - 6:31 م",
     expiryDate: "10/23/2026 - 6:31 م",
     status: "تم قبول الطلب وساري",
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setVal('adminRequestType', data.requestType);
         setVal('adminCrNumber', data.crNumber);
         setVal('adminApplicantName', data.applicantName);
+        setVal('adminJobTitle', data.jobTitle || defaultDocData.jobTitle);
         setVal('adminCreationDate', data.creationDate);
         setVal('adminExpiryDate', data.expiryDate);
         setVal('adminStatus', data.status);
@@ -125,6 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const secondParty = data.secondParty || defaultDocData.secondParty;
             setText('printBodyParty2', secondParty);
             setText('printBodyParty2Sign', secondParty);
+            
+            setText('printJobTitle', data.jobTitle || defaultDocData.jobTitle);
             
             setText('printCreatorEn', data.creatorEn || defaultDocData.creatorEn);
             setText('printCreatorAr', data.creatorAr || defaultDocData.creatorAr);
@@ -297,6 +301,7 @@ window.saveAdminData = function() {
         requestType: getVal('adminRequestType'),
         crNumber: getVal('adminCrNumber'),
         applicantName: getVal('adminApplicantName'),
+        jobTitle: getVal('adminJobTitle'),
         creationDate: getVal('adminCreationDate'),
         expiryDate: getVal('adminExpiryDate'),
         status: getVal('adminStatus'),
