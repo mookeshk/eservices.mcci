@@ -1,24 +1,24 @@
 const defaultDocData = {
-    companyName: "شركة ديار الإعمار العالمية للمقاولات العامة",
+    companyName: "شركة ديار الإعمار العالمية للمقاولات العامه",
     chamberName: "غرفة المدينة المنورة",
     unifiedNumber: "7039742783",
     idNumber: "1234567890",
-    requestNumber: "13533341",
+    requestNumber: "13577741",
     requestType: "طلب مفتوح",
-    applicantName: "طارق دك أسد زنون",
-    jobTitle: "محاسب عام",
-    creationDate: "07/25/2026 - 6:31 م",
-    expiryDate: "10/23/2026 - 6:31 م",
+    applicantName: "طارق طه احمد زنون",
+    jobTitle: "سكرتير",
+    creationDate: "08/04/2026 - 6:31 م",
+    expiryDate: "11/03/2026 - 6:31 م",
     status: "تم قبول الطلب وساري",
     amount: "35 ريال",
     crNumber: "4650286731",
-    secondParty: "محمد كمال محمد علي المليجي",
+    secondParty: "سلوى احمد علي واصل احمد",
     companyEn: "Diyar Al Aamaar Al Aalamiyyah Company",
     creatorAr: "طارق طه احمد زنون",
     creatorEn: "Tariq Taha Ahmed Zanoun",
-    dateHijri: "1448/2/11 هـ",
-    dateEn: "25-07-2026",
-    qrLink: "https://eservices.mcci.org.sa/#/DocumentVerify"
+    dateHijri: "1448/2/25 هـ",
+    dateEn: "04-08-2026",
+    qrLink: "https://mookeshk.github.io/eservices.mcci/index.html?barcode=13577741"
 };
 
 document.addEventListener('DOMContentLoaded', () => {
