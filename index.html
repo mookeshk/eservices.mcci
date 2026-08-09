@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحقق من الوثائق - بوابة خدمات الغرفة</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-right">
+                <img src="203.svg" alt="بوابة خدمات الغرفة" style="height: 55px;">
+            </div>
+            <div class="logo-left">
+                <img src="2030.svg" alt="رؤية 2030" style="height: 50px;">
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-container">
+                        <div class="title-line"></div>
+                        <h2>التحقق من الوثائق</h2>
+                    </div>
+                    <button class="btn-back" onclick="location.href='index.html'">عودة</button>
+                </div>
+                
+                <div class="card-body">
+                    <p class="instruction-text" id="instructionText">
+                        خدمة تتيح التحقق من الوثائق التي تم تصديقها إلكترونياً عبر بوابة خدمات المشتركين، وللتحقق من شهادة الاشتراك الرجاء إدخال الرقم المرجعي الخاص بالوثيقة.
+                    </p>
+
+                    <div id="formContainer" class="step active">
+                        <div class="form-group" id="refNumGroup">
+                            <input type="text" id="referenceNumber" class="form-control" placeholder="الرقم المرجعي">
+                            <div id="refError" style="color: #dc3545; font-size: 11px; font-weight: bold; margin-top: 5px; display: none;">الرقم المرجعي غير صحيح</div>
+                        </div>
+
+                        <div id="step1Actions">
+                            <div class="captcha-and-btn-wrapper">
+                                <div class="captcha-container" id="captchaBox">
+                                    <div class="captcha-left">
+                                        <div class="captcha-checkbox-box" id="captchaCheckboxBox"></div>
+                                        <span class="captcha-label-text">أنا لست برنامج روبوت</span>
+                                    </div>
+                                    <div class="captcha-logo">
+                                        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" width="28">
+                                        <div class="captcha-text">reCAPTCHA</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="next-btn-container">
+                                    <button id="btnNext" class="btn btn-primary" disabled>التالي</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="step2Actions" style="display: none;">
+                            <div style="text-align: center; margin-bottom: 25px; font-weight: bold; font-size: 14px; color: #555;" id="displayRefNumber">
+                                13533341
+                            </div>
+
+                            <div class="verification-method-section">
+                                <div class="card-title-container" style="margin-bottom: 15px;">
+                                    <div class="title-line"></div>
+                                    <h3 class="section-title">أختر طريقة التحقق</h3>
+                                </div>
+                                <div class="radio-group" style="justify-content: flex-start; gap: 40px;">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="verifyMethod" value="id">
+                                        <span class="radio-mark"></span>
+                                        <span>رقم الهوية</span>
+                                    </label>
+                                    <label class="custom-radio">
+                                        <input type="radio" name="verifyMethod" value="unified" checked>
+                                        <span class="radio-mark"></span>
+                                        <span>الرقم الموحد (700)</span>
+                                    </label>
+                                </div>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <input type="text" id="verifyInput" class="form-control" placeholder="الرقم الموحد (700)">
+                                </div>
+                                <div id="verifyError" style="color: #dc3545; font-size: 11px; font-weight: bold; margin-top: -15px; margin-bottom: 15px; display: none;">من فضلك أدخل الرقم الموحد (700)</div>
+                                <div class="actions-center" style="display: flex; justify-content: center;">
+                                    <button id="btnQuery" class="btn btn-primary" style="padding: 6px 30px;">استعلام</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Result -->
+                    <div id="step3" class="step">
+                        <div class="res-list-container">
+                            <div class="res-list">
+                                <div class="res-list-item">
+                                    <span class="res-list-label">إسم الغرفة</span>
+                                    <span class="res-list-value" id="resChamberName">غرفة المدينة المنورة</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">إسم المنشأة</span>
+                                    <span class="res-list-value" id="resCompanyName">شركة ديار الإعمار العالمية للمقاولات العامة</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">الرقم الموحد (700)</span>
+                                    <span class="res-list-value" id="resUnifiedNumber">7039742783</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">رقم الطلب</span>
+                                    <span class="res-list-value" id="resRequestNumber">13533341</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">نوع الطلب</span>
+                                    <span class="res-list-value" id="resRequestType">طلب مفتوح</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">إسم مقدم الطلب</span>
+                                    <span class="res-list-value" id="resApplicantName">طارق طه احمد زنون</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">تاريخ ووقت إنشاء الطلب</span>
+                                    <span class="res-list-value dir-ltr" id="resCreationDate">07/25/2026 - 6:31 م</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">مبلغ الطلب</span>
+                                    <span class="res-list-value" id="resAmount">35 ريال</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">تاريخ صلاحية الطلب</span>
+                                    <span class="res-list-value dir-ltr" id="resExpiryDate">10/23/2026 - 6:36 م</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">رقم السجل التجاري</span>
+                                    <span class="res-list-value" id="resCrNumber">4650286731</span>
+                                </div>
+                                <div class="res-list-item">
+                                    <span class="res-list-label">حالة الطلب</span>
+                                    <span class="res-list-value status-value" id="resStatus">تم قبول الطلب وساري</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Barcode Generation Display (Hidden visually as per original) -->
+                        <div id="qrcode" style="display: none;"></div>
+
+                        <div class="actions-center" style="margin-top: 40px; display: flex; justify-content: center; gap: 15px;">
+                            <button class="btn btn-primary" style="background-color: #4b89cc; padding: 8px 30px;" onclick="location.href='index.html'">التحقق مرة أخري</button>
+                            <button class="btn btn-primary" style="background-color: #4b89cc; padding: 8px 30px;" onclick="window.print()">تحميل</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Simulated reCAPTCHA Popup -->
+    <div class="recaptcha-overlay" id="recaptchaOverlay">
+        <div class="recaptcha-popup">
+            <div class="recaptcha-header">
+                <div class="recaptcha-prompt">حدد جميع المركبات التي تحتوي على</div>
+                <div class="recaptcha-target">حافلات</div>
+            </div>
+            <div class="recaptcha-body">
+                <div class="recaptcha-grid" id="recaptchaGrid">
+                    <!-- JS will generate 16 squares -->
+                </div>
+            </div>
+            <div class="recaptcha-footer">
+                <div class="recaptcha-icons">
+                    <i class="fas fa-redo"></i>
+                    <i class="fas fa-headphones"></i>
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <button id="btnRecaptchaVerify" class="btn btn-primary" style="padding: 6px 20px;">التالي</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-right">
+                <a href="https://worldofss.com/" target="_blank" class="developer-link" style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                    <div class="dev-title-ar" style="font-size: 11px; opacity: 0.9;">تطوير وتشغيل</div>
+                    <img src="worldofss-logo.svg" alt="World of SS" class="developer-logo-img" style="height: 35px; width: auto;">
+                </a>
+            </div>
+            <div class="footer-center">
+                <div class="tech-support">
+                    <span>الإستفسار والدعم الفني</span>
+                    <strong class="direction-ltr">00966112641362</strong>
+                    <div class="support-pill"></div>
+                </div>
+            </div>
+            <div class="footer-left">
+                <div class="footer-icons-row">
+                    <a href="https://www.facebook.com/MadinahChamber/?_rdr" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/madinahchamber" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/user/madinaChamber" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/madinahchamber" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://eservices.mcci.org.sa/#/Login" target="_blank" class="social-icon"><i class="fas fa-globe"></i></a>
+                    <div class="ssl-icon">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>SSL SECURE</div>
+                    </div>
+                </div>
+                <div class="chrome-text">يفضل استخدام متصفح جوجل كروم</div>
+            </div>
+        </div>
+    </footer>
+    <div class="copyright-bar">
+        جميع الحقوق محفوظة غرفة المدينة المنورة &copy; 2026
+    </div>
+
+    <!-- Print Only Layout -->
+    <div class="print-only">
+        <div class="print-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div class="header-ar" style="text-align: right; flex: 1;">
+                <span id="printCompanyAr" style="font-weight: 800; color: #222;"></span><br>
+                الرقم الموحد (700) : <span id="printUnifiedAr"></span><br>
+                السجل التجاري : <span id="printCrAr"></span><br>
+                المدينة المنورة - هاتف 0111111111:<br>فاكس 0111111111:
+            </div>
+            <div class="header-qr" style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                <div id="printQrcode"></div>
+                <div id="printQrLinkDisplay" style="font-size: 8px; margin-top: 5px; direction: ltr; color: #555;">https://eservices.mcci.org.sa/#/DocumentVerify</div>
+            </div>
+            <div class="header-en" style="text-align: left; direction: ltr; flex: 1;">
+                <span id="printCompanyEn" style="font-weight: 800; color: #222;"></span><br>
+                For General Contracting<br>
+                Unified Number : <span id="printUnifiedEn"></span><br>
+                CR Number : <span id="printCrEn"></span><br>
+                Tel :0111111111 Fax :0111111111
+            </div>
+        </div>
+        
+        <div class="print-meta" style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px;">
+            <div class="meta-ar" style="text-align: right; flex: 1; font-weight: bold;">
+                تاريخ الطلب : <span id="printDateAr"></span><br>
+                الرقم المرجعي : <span id="printRefAr"></span>
+            </div>
+            <div class="meta-center" style="text-align: center; flex: 2; font-size: 10px; line-height: 1.5; color: #333; padding: 0 10px;">
+                تم إصدار التصديق بناءً على طلب المشترك، دون أدنى مسؤولية على غرفة المدينة المنورة عن محتوى الوثيقة، علماً أنه لا يعتد بالتصديق إلا بعد التحقق منه من خلال قراءة QR Code<br>
+                <span style="direction: ltr; display: block; margin-top: 4px; font-size: 9px;">This Certification was issued at the request of the subscriber, and the Madinah Chamber name disclaims responsibility for its content. and this certification is only reliable after it has been verified by scanning the request's QR Code and reviewing the request's data details.</span>
+            </div>
+            <div class="meta-en" style="text-align: left; direction: ltr; flex: 1; font-weight: bold;">
+                Date : <span id="printDateEn"></span><br>
+                Ref Number : <span id="printRefEn"></span>
+            </div>
+        </div>
+        
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+        
+        <div class="print-body" style="text-align: justify;">
+            <h3 style="text-align: center; color: #3b71a8; margin-bottom: 20px; font-size: 14px;">عقد عمل</h3>
+            <p>تم إبرام هذا العقد بين:</p>
+            <p>الطرف الأول: <span id="printBodyCompany1"></span>.</p>
+            <p>الطرف الثاني: <span id="printBodyParty2"></span>.</p>
+            <p>البند الأول – الوظيفة : يعمل الطرف الثاني لدى الطرف الأول بوظيفة محاسب عام، ويلتزم بأداء جميع المهام المتعلقة بالوظيفة وفق أنظمة الشركة وتعليماتها.</p>
+            <p>البند الثاني – مدة العقد : مدة العقد عامان تبدأ في ١/٩/٢٠٢٦ وتنتهي في ٣١/٨/٢٠٢٨ ويجوز تجديده باتفاق الطرفين.</p>
+            <p>البند الثالث – مكان وساعات العمل : يكون العمل بمشروعات أو مقرات الشركة داخل المملكة العربية السعودية، وساعات العمل ٨ ساعات يومياً وفق نظام العمل السعودي.</p>
+            <p>البند الرابع – الأجر : يتقاضى العامل راتباً شهرياً أساسياً قدره ٣٠٠٠ ريال سعودي، ويصرف في نهاية كل شهر.</p>
+            <p>البند الخامس – التزامات العامل : يلتزم العامل بالمحافظة على أسرار العمل وممتلكات الشركة، وتنفيذ التعليمات، وعدم مزاولة أي عمل آخر يتعارض مع عمله إلا وفق النظام.</p>
+            <p>البند السادس – التزامات صاحب العمل : يلتزم صاحب العمل بدفع الأجر في موعده، وتوفير بيئة عمل مناسبة، ومنح العامل حقوقه النظامية.</p>
+            <p>البند السابع – الإجازات : يستحق العامل إجازة سنوية مدفوعة الأجر مدتها ٢١ يوماً، بالإضافة إلى الإجازات الرسمية وما يقرره نظام العمل.</p>
+            <p>البند الثامن – إنهاء العقد : يجوز إنهاء العقد وفق أحكام نظام العمل السعودي مع حفظ الحقوق النظامية للطرفين.</p>
+            <p>البند التاسع – أحكام عامة : يخضع هذا العقد لنظام العمل في المملكة العربية السعودية، وأي تعديل عليه يكون مكتوباً وموقعاً من الطرفين.</p>
+            <p>البند العاشر – النسخ والتوقيع: حرر هذا العقد من نسختين أصليتين بيد كل طرف نسخة للعمل بموجبها.</p>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: 40px; font-weight: bold;">
+                <div style="text-align: right;">الطرف الأول: <span id="printBodyCompany2"></span><br><br>التوقيع:</div>
+                <div style="text-align: left;">الطرف الثاني: <span id="printBodyParty2Sign"></span><br><br>التوقيع:</div>
+            </div>
+        </div>
+        
+        <div class="print-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px;">
+            <div class="footer-logo" style="flex: 1; text-align: right;">
+                <img src="203.svg" alt="Chamber Logo" style="height: 60px;">
+            </div>
+            <div class="footer-center" style="flex: 1; text-align: center; font-weight: bold;">
+                تم بواسطة <span id="printCreatorAr"></span><br>
+                أي إضافة أو كشط على هذه الوثيقة تعتبر لاغية<br>
+                تعتبر هذه الوثيقة الإلكترونية مستوفية للإجراءات النظامية المتبعة بالغرفة<br>
+                <span style="color: red;">تنويه : النموذج صالح حتي <span id="printValidAr"></span></span>
+            </div>
+            <div class="footer-en" style="flex: 1; text-align: left; direction: ltr; font-weight: bold;">
+                Created by <span id="printCreatorEn"></span><br>
+                Any addition or scraping on this document is considered void<br>
+                This electronic document fulfills the regular procedures followed by the Chamber<br>
+                <span style="color: red;">Note : Document Valid till <span id="printValidEn"></span></span>
+            </div>
+        </div>
+        <div class="print-page-num" style="text-align: center; background: #8ba4b9 !important; color: #fff !important; padding: 8px; margin-top: 30px; font-size: 12px; border-radius: 8px; font-weight: bold; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+            1 / 1
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

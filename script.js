@@ -1,0 +1,309 @@
+const defaultDocData = {
+    companyName: "شركة ديار الإعمار العالمية للمقاولات العامة",
+    chamberName: "غرفة المدينة المنورة",
+    unifiedNumber: "7039742783",
+    idNumber: "1234567890",
+    requestNumber: "13533341",
+    requestType: "طلب مفتوح",
+    applicantName: "طارق دك أسد زنون",
+    creationDate: "07/25/2026 - 6:31 م",
+    expiryDate: "10/23/2026 - 6:31 م",
+    status: "تم قبول الطلب وساري",
+    amount: "35 ريال",
+    crNumber: "4650286731",
+    secondParty: "محمد كمال محمد علي المليجي",
+    companyEn: "Diyar Al Aamaar Al Aalamiyyah Company",
+    creatorAr: "طارق طه احمد زنون",
+    creatorEn: "Tariq Taha Ahmed Zanoun",
+    dateHijri: "1448/2/11 هـ",
+    dateEn: "25-07-2026",
+    qrLink: "https://eservices.mcci.org.sa/#/DocumentVerify"
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const step1Actions = document.getElementById('step1Actions');
+    const step2Actions = document.getElementById('step2Actions');
+    const step3 = document.getElementById('step3');
+    const formContainer = document.getElementById('formContainer');
+    const instructionText = document.getElementById('instructionText');
+
+    const captchaBox = document.getElementById('captchaBox');
+    const captchaCheckboxBox = document.getElementById('captchaCheckboxBox');
+    const recaptchaOverlay = document.getElementById('recaptchaOverlay');
+    const recaptchaGrid = document.getElementById('recaptchaGrid');
+    const btnRecaptchaVerify = document.getElementById('btnRecaptchaVerify');
+    
+    const btnNext = document.getElementById('btnNext');
+    const btnQuery = document.getElementById('btnQuery');
+    
+    const refNumGroup = document.getElementById('refNumGroup');
+    const referenceNumberInput = document.getElementById('referenceNumber');
+    const displayRefNumber = document.getElementById('displayRefNumber');
+    const refError = document.getElementById('refError');
+    
+    const verifyInput = document.getElementById('verifyInput');
+    const verifyError = document.getElementById('verifyError');
+    const radioInputs = document.querySelectorAll('input[name="verifyMethod"]');
+
+    // Load Admin Data if on Admin Page
+    if (window.location.pathname.includes('admin.html')) {
+        const data = JSON.parse(localStorage.getItem('docData')) || defaultDocData;
+        
+        // Step 3 basic data
+        if(document.getElementById('adminCompanyName')) document.getElementById('adminCompanyName').value = data.companyName;
+        if(document.getElementById('adminChamberName')) document.getElementById('adminChamberName').value = data.chamberName;
+        if(document.getElementById('adminUnifiedNumber')) document.getElementById('adminUnifiedNumber').value = data.unifiedNumber;
+        if(document.getElementById('adminIdNumber')) document.getElementById('adminIdNumber').value = data.idNumber || '1234567890';
+        if(document.getElementById('adminRequestNumber')) document.getElementById('adminRequestNumber').value = data.requestNumber;
+        if(document.getElementById('adminRequestType')) document.getElementById('adminRequestType').value = data.requestType;
+        if(document.getElementById('adminCrNumber')) document.getElementById('adminCrNumber').value = data.crNumber;
+        if(document.getElementById('adminApplicantName')) document.getElementById('adminApplicantName').value = data.applicantName;
+        if(document.getElementById('adminCreationDate')) document.getElementById('adminCreationDate').value = data.creationDate;
+        if(document.getElementById('adminExpiryDate')) document.getElementById('adminExpiryDate').value = data.expiryDate;
+        if(document.getElementById('adminStatus')) document.getElementById('adminStatus').value = data.status;
+        if(document.getElementById('adminAmount')) document.getElementById('adminAmount').value = data.amount;
+        
+        // Print-specific data
+        if(document.getElementById('adminSecondParty')) document.getElementById('adminSecondParty').value = data.secondParty || defaultDocData.secondParty;
+        if(document.getElementById('adminCompanyEn')) document.getElementById('adminCompanyEn').value = data.companyEn || defaultDocData.companyEn;
+        if(document.getElementById('adminCreatorAr')) document.getElementById('adminCreatorAr').value = data.creatorAr || defaultDocData.creatorAr;
+        if(document.getElementById('adminCreatorEn')) document.getElementById('adminCreatorEn').value = data.creatorEn || defaultDocData.creatorEn;
+        if(document.getElementById('adminDateHijri')) document.getElementById('adminDateHijri').value = data.dateHijri || defaultDocData.dateHijri;
+        if(document.getElementById('adminDateEn')) document.getElementById('adminDateEn').value = data.dateEn || defaultDocData.dateEn;
+        if(document.getElementById('adminQrLink')) document.getElementById('adminQrLink').value = data.qrLink || "https://eservices.mcci.org.sa/#/DocumentVerify";
+    }
+
+    // Populate data for step 3 and Print if we are on index.html
+    const resCompanyName = document.getElementById('resCompanyName');
+    if (resCompanyName) {
+        const data = JSON.parse(localStorage.getItem('docData')) || defaultDocData;
+        
+        // Populate Result Screen
+        document.getElementById('resCompanyName').textContent = data.companyName;
+        document.getElementById('resChamberName').textContent = data.chamberName;
+        document.getElementById('resUnifiedNumber').textContent = data.unifiedNumber;
+        document.getElementById('resRequestNumber').textContent = data.requestNumber;
+        document.getElementById('resRequestType').textContent = data.requestType;
+        document.getElementById('resCrNumber').textContent = data.crNumber;
+        document.getElementById('resApplicantName').textContent = data.applicantName;
+        document.getElementById('resCreationDate').textContent = data.creationDate;
+        document.getElementById('resExpiryDate').textContent = data.expiryDate;
+        document.getElementById('resStatus').textContent = data.status;
+        document.getElementById('resAmount').textContent = data.amount;
+
+        // Populate Print Layout
+        if(document.getElementById('printCompanyEn')) {
+            document.getElementById('printCompanyEn').textContent = data.companyEn || defaultDocData.companyEn;
+            document.getElementById('printUnifiedEn').textContent = data.unifiedNumber;
+            document.getElementById('printCrEn').textContent = data.crNumber;
+            
+            document.getElementById('printCompanyAr').textContent = data.companyName;
+            document.getElementById('printUnifiedAr').textContent = data.unifiedNumber;
+            document.getElementById('printCrAr').textContent = data.crNumber;
+            
+            document.getElementById('printDateEn').textContent = data.dateEn || defaultDocData.dateEn;
+            document.getElementById('printRefEn').textContent = data.requestNumber;
+            
+            document.getElementById('printDateAr').textContent = data.dateHijri || defaultDocData.dateHijri;
+            document.getElementById('printRefAr').textContent = data.requestNumber;
+            
+            document.getElementById('printBodyCompany1').textContent = data.companyName;
+            document.getElementById('printBodyCompany2').textContent = data.companyName;
+            
+            const secondParty = data.secondParty || defaultDocData.secondParty;
+            document.getElementById('printBodyParty2').textContent = secondParty;
+            document.getElementById('printBodyParty2Sign').textContent = secondParty;
+            
+            document.getElementById('printCreatorEn').textContent = data.creatorEn || defaultDocData.creatorEn;
+            document.getElementById('printCreatorAr').textContent = data.creatorAr || defaultDocData.creatorAr;
+            
+            // Just use the first 10 chars of expiryDate for valid till date
+            const validDate = data.expiryDate ? data.expiryDate.split(' ')[0] : '10/23/2026';
+            document.getElementById('printValidEn').textContent = validDate.replace(/\//g, '-');
+            document.getElementById('printValidAr').textContent = validDate.replace(/\//g, '-');
+        }
+    }
+
+    // Handle Barcode (URL parameters)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('barcode') || urlParams.has('ref')) {
+        if(formContainer) formContainer.classList.remove('active');
+        if(step3) step3.classList.add('active');
+        
+        const data = JSON.parse(localStorage.getItem('docData')) || defaultDocData;
+        const qrLink = data.qrLink || "https://eservices.mcci.org.sa/#/DocumentVerify";
+        
+        // Generate Screen QR Code
+        const qrcodeElem = document.getElementById("qrcode");
+        if (qrcodeElem) {
+            new QRCode(qrcodeElem, {
+                text: qrLink, width: 128, height: 128,
+                colorDark : "#000000", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+        
+        // Generate Print QR Code
+        const printQrcode = document.getElementById("printQrcode");
+        if(printQrcode) {
+            new QRCode(printQrcode, {
+                text: qrLink, width: 90, height: 90,
+                colorDark : "#000000", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+        
+        const printQrLinkDisplay = document.getElementById("printQrLinkDisplay");
+        if (printQrLinkDisplay) {
+            printQrLinkDisplay.textContent = qrLink;
+        }
+
+        return;
+    }
+
+    // ... (rest of logic: recaptcha, validation, etc)
+    if(recaptchaGrid) {
+        for(let i=0; i<16; i++) {
+            const item = document.createElement('div');
+            item.className = 'recaptcha-grid-item';
+            item.style.backgroundPosition = `${(i % 4) * 33.333}% ${Math.floor(i / 4) * 33.333}%`;
+            item.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+            recaptchaGrid.appendChild(item);
+        }
+    }
+
+    if(captchaBox) {
+        captchaBox.addEventListener('click', () => {
+            if (!captchaCheckboxBox.classList.contains('checked')) {
+                recaptchaOverlay.classList.add('active');
+            }
+        });
+    }
+
+    if(recaptchaOverlay) {
+        recaptchaOverlay.addEventListener('click', (e) => {
+            if (e.target === recaptchaOverlay) {
+                recaptchaOverlay.classList.remove('active');
+            }
+        });
+    }
+
+    if(btnRecaptchaVerify) {
+        btnRecaptchaVerify.addEventListener('click', () => {
+            recaptchaOverlay.classList.remove('active');
+            captchaCheckboxBox.classList.add('checked');
+            btnNext.disabled = false;
+        });
+    }
+
+    if(btnNext) {
+        btnNext.addEventListener('click', () => {
+            const data = JSON.parse(localStorage.getItem('docData')) || defaultDocData;
+            const refVal = referenceNumberInput.value.trim();
+            const expectedRef = data.requestNumber;
+            
+            if (refVal !== expectedRef) {
+                if(refError) {
+                    refError.textContent = 'الرقم المرجعي غير صحيح';
+                    refError.style.display = 'block';
+                    referenceNumberInput.style.borderColor = '#dc3545';
+                }
+                return;
+            }
+            
+            if(refError) refError.style.display = 'none';
+            referenceNumberInput.style.borderColor = '#dcdcdc';
+            
+            step1Actions.style.display = 'none';
+            refNumGroup.style.display = 'none';
+            displayRefNumber.textContent = refVal;
+            step2Actions.style.display = 'block';
+        });
+    }
+
+    if(radioInputs) {
+        radioInputs.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'unified') {
+                    verifyInput.placeholder = 'الرقم الموحد (700)';
+                } else {
+                    verifyInput.placeholder = 'رقم الهوية';
+                }
+                verifyError.style.display = 'none';
+                verifyInput.style.borderColor = '#dcdcdc';
+            });
+        });
+    }
+
+    if(btnQuery) {
+        btnQuery.addEventListener('click', () => {
+            const data = JSON.parse(localStorage.getItem('docData')) || defaultDocData;
+            const enteredValue = verifyInput.value.trim();
+            const selectedMethod = document.querySelector('input[name="verifyMethod"]:checked').value;
+            
+            let expectedValue = selectedMethod === 'unified' ? data.unifiedNumber : (data.idNumber || '1234567890');
+
+            if (!enteredValue) {
+                verifyError.textContent = 'من فضلك أدخل ' + (selectedMethod === 'unified' ? 'الرقم الموحد (700)' : 'رقم الهوية');
+                verifyError.style.display = 'block';
+                verifyInput.style.borderColor = '#dc3545';
+            } else if (enteredValue !== expectedValue) {
+                verifyError.textContent = 'الرقم غير صحيح، يرجى التأكد من البيانات المدخلة.';
+                verifyError.style.display = 'block';
+                verifyInput.style.borderColor = '#dc3545';
+            } else {
+                verifyError.style.display = 'none';
+                verifyInput.style.borderColor = '#dcdcdc';
+                const refNo = displayRefNumber.textContent;
+                window.location.href = `index.html?barcode=${refNo}`;
+            }
+        });
+    }
+    
+    if (referenceNumberInput) {
+        referenceNumberInput.addEventListener('input', function() {
+            this.style.borderColor = '#dcdcdc';
+            if(refError) refError.style.display = 'none';
+        });
+    }
+    if (verifyInput) {
+        verifyInput.addEventListener('input', function() {
+            this.style.borderColor = '#dcdcdc';
+            if(verifyError) verifyError.style.display = 'none';
+        });
+    }
+});
+
+// Admin Functions
+window.saveAdminData = function() {
+    const data = {
+        companyName: document.getElementById('adminCompanyName').value,
+        chamberName: document.getElementById('adminChamberName').value,
+        unifiedNumber: document.getElementById('adminUnifiedNumber').value,
+        idNumber: document.getElementById('adminIdNumber') ? document.getElementById('adminIdNumber').value : '1234567890',
+        requestNumber: document.getElementById('adminRequestNumber').value,
+        requestType: document.getElementById('adminRequestType').value,
+        crNumber: document.getElementById('adminCrNumber').value,
+        applicantName: document.getElementById('adminApplicantName').value,
+        creationDate: document.getElementById('adminCreationDate').value,
+        expiryDate: document.getElementById('adminExpiryDate').value,
+        status: document.getElementById('adminStatus').value,
+        amount: document.getElementById('adminAmount').value,
+        secondParty: document.getElementById('adminSecondParty').value,
+        companyEn: document.getElementById('adminCompanyEn').value,
+        creatorAr: document.getElementById('adminCreatorAr').value,
+        creatorEn: document.getElementById('adminCreatorEn').value,
+        dateHijri: document.getElementById('adminDateHijri').value,
+        dateEn: document.getElementById('adminDateEn').value,
+        qrLink: document.getElementById('adminQrLink') ? document.getElementById('adminQrLink').value : "https://eservices.mcci.org.sa/#/DocumentVerify"
+    };
+    localStorage.setItem('docData', JSON.stringify(data));
+    const msg = document.getElementById('saveMessage');
+    msg.style.display = 'block';
+    setTimeout(() => { msg.style.display = 'none'; }, 3000);
+};
+
+window.resetAdminData = function() {
+    localStorage.removeItem('docData');
+    window.location.reload();
+};

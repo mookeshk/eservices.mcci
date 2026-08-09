@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة - بوابة خدمات الغرفة</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-right">
+                <img src="203.svg" alt="بوابة خدمات الغرفة" style="height: 55px;">
+            </div>
+            <div class="logo-left">
+                <img src="2030.svg" alt="رؤية 2030" style="height: 50px;">
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-container">
+                        <div class="title-line"></div>
+                        <h2>لوحة الإدارة - تعديل بيانات الوثيقة (بما فيها الطباعة)</h2>
+                    </div>
+                    <button class="btn-back" onclick="location.href='index.html'">معاينة الموقع</button>
+                </div>
+                
+                <div class="card-body">
+                    <div class="result-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                        
+                        <!-- Column 1 -->
+                        <div class="result-column">
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">إسم المنشأة (عربي)</label>
+                                <input type="text" id="adminCompanyName" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">إسم المنشأة (إنجليزي)</label>
+                                <input type="text" id="adminCompanyEn" class="form-control" style="text-align: right; direction: ltr;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">الرقم الموحد (700)</label>
+                                <input type="text" id="adminUnifiedNumber" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">رقم الهوية</label>
+                                <input type="text" id="adminIdNumber" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">رقم السجل التجاري</label>
+                                <input type="text" id="adminCrNumber" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">رقم الطلب (الرقم المرجعي)</label>
+                                <input type="text" id="adminRequestNumber" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">نوع الطلب</label>
+                                <input type="text" id="adminRequestType" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">مبلغ الطلب</label>
+                                <input type="text" id="adminAmount" class="form-control" style="text-align: right;">
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="result-column">
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">رابط الـ QR Code</label>
+                                <input type="text" id="adminQrLink" class="form-control" style="text-align: left; direction: ltr;" placeholder="https://eservices.mcci.org.sa/#/DocumentVerify">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">إسم مقدم الطلب</label>
+                                <input type="text" id="adminApplicantName" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">إسم الطرف الثاني (للعقد)</label>
+                                <input type="text" id="adminSecondParty" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">تاريخ الطلب (ميلادي - للطباعة)</label>
+                                <input type="text" id="adminDateEn" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">تاريخ الطلب (هجري - للطباعة)</label>
+                                <input type="text" id="adminDateHijri" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">منشئ الطلب (عربي)</label>
+                                <input type="text" id="adminCreatorAr" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">منشئ الطلب (إنجليزي)</label>
+                                <input type="text" id="adminCreatorEn" class="form-control" style="text-align: right; direction: ltr;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">حالة الطلب</label>
+                                <input type="text" id="adminStatus" class="form-control" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block; font-size: 13px;">إسم الغرفة</label>
+                                <input type="text" id="adminChamberName" class="form-control" style="text-align: right;">
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="actions-center" style="margin-top: 30px; display: flex; justify-content: center; gap: 15px;">
+                        <button class="btn btn-primary" onclick="saveAdminData()">حفظ البيانات</button>
+                        <button class="btn btn-secondary" onclick="resetAdminData()">استعادة الافتراضي</button>
+                    </div>
+                    <div id="saveMessage" style="text-align: center; color: var(--green-color); margin-top: 15px; font-weight: bold; display: none;">تم حفظ البيانات بنجاح! ستظهر التعديلات في صفحة النتيجة والطباعة.</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
