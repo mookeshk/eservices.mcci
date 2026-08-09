@@ -49,28 +49,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('admin.html')) {
         const data = JSON.parse(localStorage.getItem('docData')) || defaultDocData;
         
+        // Helper to safely set value
+        const setVal = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.value = val;
+        };
+
         // Step 3 basic data
-        if(document.getElementById('adminCompanyName')) document.getElementById('adminCompanyName').value = data.companyName;
-        if(document.getElementById('adminChamberName')) document.getElementById('adminChamberName').value = data.chamberName;
-        if(document.getElementById('adminUnifiedNumber')) document.getElementById('adminUnifiedNumber').value = data.unifiedNumber;
-        if(document.getElementById('adminIdNumber')) document.getElementById('adminIdNumber').value = data.idNumber || '1234567890';
-        if(document.getElementById('adminRequestNumber')) document.getElementById('adminRequestNumber').value = data.requestNumber;
-        if(document.getElementById('adminRequestType')) document.getElementById('adminRequestType').value = data.requestType;
-        if(document.getElementById('adminCrNumber')) document.getElementById('adminCrNumber').value = data.crNumber;
-        if(document.getElementById('adminApplicantName')) document.getElementById('adminApplicantName').value = data.applicantName;
-        if(document.getElementById('adminCreationDate')) document.getElementById('adminCreationDate').value = data.creationDate;
-        if(document.getElementById('adminExpiryDate')) document.getElementById('adminExpiryDate').value = data.expiryDate;
-        if(document.getElementById('adminStatus')) document.getElementById('adminStatus').value = data.status;
-        if(document.getElementById('adminAmount')) document.getElementById('adminAmount').value = data.amount;
+        setVal('adminCompanyName', data.companyName);
+        setVal('adminChamberName', data.chamberName);
+        setVal('adminUnifiedNumber', data.unifiedNumber);
+        setVal('adminIdNumber', data.idNumber || '1234567890');
+        setVal('adminRequestNumber', data.requestNumber);
+        setVal('adminRequestType', data.requestType);
+        setVal('adminCrNumber', data.crNumber);
+        setVal('adminApplicantName', data.applicantName);
+        setVal('adminCreationDate', data.creationDate);
+        setVal('adminExpiryDate', data.expiryDate);
+        setVal('adminStatus', data.status);
+        setVal('adminAmount', data.amount);
         
         // Print-specific data
-        if(document.getElementById('adminSecondParty')) document.getElementById('adminSecondParty').value = data.secondParty || defaultDocData.secondParty;
-        if(document.getElementById('adminCompanyEn')) document.getElementById('adminCompanyEn').value = data.companyEn || defaultDocData.companyEn;
-        if(document.getElementById('adminCreatorAr')) document.getElementById('adminCreatorAr').value = data.creatorAr || defaultDocData.creatorAr;
-        if(document.getElementById('adminCreatorEn')) document.getElementById('adminCreatorEn').value = data.creatorEn || defaultDocData.creatorEn;
-        if(document.getElementById('adminDateHijri')) document.getElementById('adminDateHijri').value = data.dateHijri || defaultDocData.dateHijri;
-        if(document.getElementById('adminDateEn')) document.getElementById('adminDateEn').value = data.dateEn || defaultDocData.dateEn;
-        if(document.getElementById('adminQrLink')) document.getElementById('adminQrLink').value = data.qrLink || "https://eservices.mcci.org.sa/#/DocumentVerify";
+        setVal('adminSecondParty', data.secondParty || defaultDocData.secondParty);
+        setVal('adminCompanyEn', data.companyEn || defaultDocData.companyEn);
+        setVal('adminCreatorAr', data.creatorAr || defaultDocData.creatorAr);
+        setVal('adminCreatorEn', data.creatorEn || defaultDocData.creatorEn);
+        setVal('adminDateHijri', data.dateHijri || defaultDocData.dateHijri);
+        setVal('adminDateEn', data.dateEn || defaultDocData.dateEn);
+        setVal('adminQrLink', data.qrLink || "https://eservices.mcci.org.sa/#/DocumentVerify");
     }
 
     // Populate data for step 3 and Print if we are on index.html
@@ -78,49 +84,55 @@ document.addEventListener('DOMContentLoaded', () => {
     if (resCompanyName) {
         const data = JSON.parse(localStorage.getItem('docData')) || defaultDocData;
         
+        // Helper to safely set text content
+        const setText = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
+        };
+
         // Populate Result Screen
-        document.getElementById('resCompanyName').textContent = data.companyName;
-        document.getElementById('resChamberName').textContent = data.chamberName;
-        document.getElementById('resUnifiedNumber').textContent = data.unifiedNumber;
-        document.getElementById('resRequestNumber').textContent = data.requestNumber;
-        document.getElementById('resRequestType').textContent = data.requestType;
-        document.getElementById('resCrNumber').textContent = data.crNumber;
-        document.getElementById('resApplicantName').textContent = data.applicantName;
-        document.getElementById('resCreationDate').textContent = data.creationDate;
-        document.getElementById('resExpiryDate').textContent = data.expiryDate;
-        document.getElementById('resStatus').textContent = data.status;
-        document.getElementById('resAmount').textContent = data.amount;
+        setText('resCompanyName', data.companyName);
+        setText('resChamberName', data.chamberName);
+        setText('resUnifiedNumber', data.unifiedNumber);
+        setText('resRequestNumber', data.requestNumber);
+        setText('resRequestType', data.requestType);
+        setText('resCrNumber', data.crNumber);
+        setText('resApplicantName', data.applicantName);
+        setText('resCreationDate', data.creationDate);
+        setText('resExpiryDate', data.expiryDate);
+        setText('resStatus', data.status);
+        setText('resAmount', data.amount);
 
         // Populate Print Layout
         if(document.getElementById('printCompanyEn')) {
-            document.getElementById('printCompanyEn').textContent = data.companyEn || defaultDocData.companyEn;
-            document.getElementById('printUnifiedEn').textContent = data.unifiedNumber;
-            document.getElementById('printCrEn').textContent = data.crNumber;
+            setText('printCompanyEn', data.companyEn || defaultDocData.companyEn);
+            setText('printUnifiedEn', data.unifiedNumber);
+            setText('printCrEn', data.crNumber);
             
-            document.getElementById('printCompanyAr').textContent = data.companyName;
-            document.getElementById('printUnifiedAr').textContent = data.unifiedNumber;
-            document.getElementById('printCrAr').textContent = data.crNumber;
+            setText('printCompanyAr', data.companyName);
+            setText('printUnifiedAr', data.unifiedNumber);
+            setText('printCrAr', data.crNumber);
             
-            document.getElementById('printDateEn').textContent = data.dateEn || defaultDocData.dateEn;
-            document.getElementById('printRefEn').textContent = data.requestNumber;
+            setText('printDateEn', data.dateEn || defaultDocData.dateEn);
+            setText('printRefEn', data.requestNumber);
             
-            document.getElementById('printDateAr').textContent = data.dateHijri || defaultDocData.dateHijri;
-            document.getElementById('printRefAr').textContent = data.requestNumber;
+            setText('printDateAr', data.dateHijri || defaultDocData.dateHijri);
+            setText('printRefAr', data.requestNumber);
             
-            document.getElementById('printBodyCompany1').textContent = data.companyName;
-            document.getElementById('printBodyCompany2').textContent = data.companyName;
+            setText('printBodyCompany1', data.companyName);
+            setText('printBodyCompany2', data.companyName);
             
             const secondParty = data.secondParty || defaultDocData.secondParty;
-            document.getElementById('printBodyParty2').textContent = secondParty;
-            document.getElementById('printBodyParty2Sign').textContent = secondParty;
+            setText('printBodyParty2', secondParty);
+            setText('printBodyParty2Sign', secondParty);
             
-            document.getElementById('printCreatorEn').textContent = data.creatorEn || defaultDocData.creatorEn;
-            document.getElementById('printCreatorAr').textContent = data.creatorAr || defaultDocData.creatorAr;
+            setText('printCreatorEn', data.creatorEn || defaultDocData.creatorEn);
+            setText('printCreatorAr', data.creatorAr || defaultDocData.creatorAr);
             
             // Just use the first 10 chars of expiryDate for valid till date
             const validDate = data.expiryDate ? data.expiryDate.split(' ')[0] : '10/23/2026';
-            document.getElementById('printValidEn').textContent = validDate.replace(/\//g, '-');
-            document.getElementById('printValidAr').textContent = validDate.replace(/\//g, '-');
+            setText('printValidEn', validDate.replace(/\//g, '-'));
+            setText('printValidAr', validDate.replace(/\//g, '-'));
         }
     }
 
@@ -276,31 +288,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Admin Functions
 window.saveAdminData = function() {
-    const data = {
-        companyName: document.getElementById('adminCompanyName').value,
-        chamberName: document.getElementById('adminChamberName').value,
-        unifiedNumber: document.getElementById('adminUnifiedNumber').value,
-        idNumber: document.getElementById('adminIdNumber') ? document.getElementById('adminIdNumber').value : '1234567890',
-        requestNumber: document.getElementById('adminRequestNumber').value,
-        requestType: document.getElementById('adminRequestType').value,
-        crNumber: document.getElementById('adminCrNumber').value,
-        applicantName: document.getElementById('adminApplicantName').value,
-        creationDate: document.getElementById('adminCreationDate').value,
-        expiryDate: document.getElementById('adminExpiryDate').value,
-        status: document.getElementById('adminStatus').value,
-        amount: document.getElementById('adminAmount').value,
-        secondParty: document.getElementById('adminSecondParty').value,
-        companyEn: document.getElementById('adminCompanyEn').value,
-        creatorAr: document.getElementById('adminCreatorAr').value,
-        creatorEn: document.getElementById('adminCreatorEn').value,
-        dateHijri: document.getElementById('adminDateHijri').value,
-        dateEn: document.getElementById('adminDateEn').value,
-        qrLink: document.getElementById('adminQrLink') ? document.getElementById('adminQrLink').value : "https://eservices.mcci.org.sa/#/DocumentVerify"
+    const getVal = (id, fallback = '') => {
+        const el = document.getElementById(id);
+        return el ? el.value : fallback;
     };
-    localStorage.setItem('docData', JSON.stringify(data));
-    const msg = document.getElementById('saveMessage');
-    msg.style.display = 'block';
-    setTimeout(() => { msg.style.display = 'none'; }, 3000);
+
+    const data = {
+        companyName: getVal('adminCompanyName'),
+        chamberName: getVal('adminChamberName'),
+        unifiedNumber: getVal('adminUnifiedNumber'),
+        idNumber: getVal('adminIdNumber', '1234567890'),
+        requestNumber: getVal('adminRequestNumber'),
+        requestType: getVal('adminRequestType'),
+        crNumber: getVal('adminCrNumber'),
+        applicantName: getVal('adminApplicantName'),
+        creationDate: getVal('adminCreationDate'),
+        expiryDate: getVal('adminExpiryDate'),
+        status: getVal('adminStatus'),
+        amount: getVal('adminAmount'),
+        secondParty: getVal('adminSecondParty'),
+        companyEn: getVal('adminCompanyEn'),
+        creatorAr: getVal('adminCreatorAr'),
+        creatorEn: getVal('adminCreatorEn'),
+        dateHijri: getVal('adminDateHijri'),
+        dateEn: getVal('adminDateEn'),
+        qrLink: getVal('adminQrLink', "https://eservices.mcci.org.sa/#/DocumentVerify")
+    };
+
+    try {
+        localStorage.setItem('docData', JSON.stringify(data));
+        const msg = document.getElementById('saveMessage');
+        if(msg) {
+            msg.style.display = 'block';
+            setTimeout(() => { msg.style.display = 'none'; }, 3000);
+        }
+    } catch(e) {
+        console.error("Error saving to localStorage", e);
+        alert("حدث خطأ أثناء الحفظ!");
+    }
 };
 
 window.resetAdminData = function() {
