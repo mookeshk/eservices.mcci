@@ -129,10 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
             setText('printCreatorEn', data.creatorEn || defaultDocData.creatorEn);
             setText('printCreatorAr', data.creatorAr || defaultDocData.creatorAr);
             
-            // Just use the first 10 chars of expiryDate for valid till date
-            const validDate = data.expiryDate ? data.expiryDate.split(' ')[0] : '10/23/2026';
-            setText('printValidEn', validDate.replace(/\//g, '-'));
-            setText('printValidAr', validDate.replace(/\//g, '-'));
+            // Read directly from expiryDate
+            const validDate = data.expiryDate || '10/23/2026';
+            setText('printValidEn', validDate);
+            setText('printValidAr', validDate);
         }
     }
 
