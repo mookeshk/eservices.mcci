@@ -133,10 +133,38 @@ document.addEventListener('DOMContentLoaded', () => {
             setText('printCreatorEn', data.creatorEn || defaultDocData.creatorEn);
             setText('printCreatorAr', data.creatorAr || defaultDocData.creatorAr);
             
-            // Read directly from expiryDate
-            const validDate = data.expiryDate || '10/23/2026';
-            setText('printValidEn', validDate);
-            setText('printValidAr', validDate);
+            // Read from expiryDate and format properly
+            let validDateRaw = data.expiryDate || '10/23/2026';
+            if (validDateRaw.includes(' - ')) {
+                validDateRaw = validDateRaw.split(' - ')[0]; // Extract just the date part
+            }
+            // Assuming format is MM/DD/YYYY from default
+            let validEn = validDateRaw.replace(/\//g, '-');
+            let validAr = validDateRaw.replace(/\//g, '-');
+            
+            let dateParts = validDateRaw.split('/');
+            if (dateParts.length === 3) {
+                let mm = dateParts[0];
+                let dd = dateParts[1];
+                let yyyy = dateParts[2];
+                validEn = `${dd}-${mm}-${yyyy}`;
+                validAr = `${yyyy}-${mm}-${dd}`;
+            } else if (validDateRaw.includes('-')) {
+                // If they typed it with dashes already
+                let parts = validDateRaw.split('-');
+                if (parts.length === 3 && parts[0].length === 4) {
+                    // YYYY-MM-DD
+                    validAr = validDateRaw;
+                    validEn = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                } else if (parts.length === 3 && parts[2].length === 4) {
+                    // DD-MM-YYYY or MM-DD-YYYY
+                    validEn = validDateRaw;
+                    validAr = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                }
+            }
+
+            setText('printValidEn', validEn);
+            setText('printValidAr', validAr);
         }
     }
 
