@@ -163,11 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        const printQrLinkDisplay = document.getElementById("printQrLinkDisplay");
-        if (printQrLinkDisplay) {
-            printQrLinkDisplay.textContent = qrLink;
-        }
-
         return;
     }
 

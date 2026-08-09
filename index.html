@@ -228,7 +228,7 @@
             </div>
             <div class="header-qr" style="flex: 1; display: flex; flex-direction: column; align-items: center;">
                 <div id="printQrcode"></div>
-                <div id="printQrLinkDisplay" style="font-size: 8px; margin-top: 5px; direction: ltr; color: #555;">https://eservices.mcci.org.sa/#/DocumentVerify</div>
+                <div id="printQrLinkDisplay" style="font-size: 8px; margin-top: 5px; direction: ltr; color: #555;">/eservices.mcci/index.html</div>
             </div>
             <div class="header-en" style="text-align: left; direction: ltr; flex: 1;">
                 <span id="printCompanyEn" style="font-weight: 800; color: #222;"></span><br>
@@ -254,10 +254,10 @@
             </div>
         </div>
         
-        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+        <hr style="margin: 10px 0; border: 0; border-top: 1px solid #ddd;">
         
-        <div class="print-body" style="text-align: justify;">
-            <h3 style="text-align: center; color: #3b71a8; margin-bottom: 20px; font-size: 14px;">عقد عمل</h3>
+        <div class="print-body" style="text-align: justify; font-size: 12px; line-height: 1.6;">
+            <h3 style="text-align: center; color: #3b71a8; margin-bottom: 10px; font-size: 14px;">عقد عمل</h3>
             <p>تم إبرام هذا العقد بين:</p>
             <p>الطرف الأول: <span id="printBodyCompany1"></span>.</p>
             <p>الطرف الثاني: <span id="printBodyParty2"></span>.</p>
@@ -272,30 +272,30 @@
             <p>البند التاسع – أحكام عامة : يخضع هذا العقد لنظام العمل في المملكة العربية السعودية، وأي تعديل عليه يكون مكتوباً وموقعاً من الطرفين.</p>
             <p>البند العاشر – النسخ والتوقيع: حرر هذا العقد من نسختين أصليتين بيد كل طرف نسخة للعمل بموجبها.</p>
             
-            <div style="display: flex; justify-content: space-between; margin-top: 40px; font-weight: bold;">
-                <div style="text-align: right;">الطرف الأول: <span id="printBodyCompany2"></span><br><br>التوقيع:</div>
-                <div style="text-align: left;">الطرف الثاني: <span id="printBodyParty2Sign"></span><br><br>التوقيع:</div>
+            <div style="display: flex; justify-content: space-between; margin-top: 25px; font-weight: bold;">
+                <div style="text-align: right; width: 45%;">الطرف الأول: <span id="printBodyCompany2"></span><br><br>التوقيع:</div>
+                <div style="text-align: right; width: 45%;">الطرف الثاني: <span id="printBodyParty2Sign"></span><br><br>التوقيع:</div>
             </div>
         </div>
         
-        <div class="print-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px;">
+        <div class="print-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 25px;">
             <div class="footer-logo" style="flex: 1; text-align: right;">
-                <img src="203.svg" alt="Chamber Logo" style="height: 60px;">
+                <img src="203.svg" alt="Chamber Logo" style="height: 50px;">
             </div>
-            <div class="footer-center" style="flex: 1; text-align: center; font-weight: bold;">
+            <div class="footer-center" style="flex: 1; text-align: center; font-weight: bold; font-size: 9px;">
                 تم بواسطة <span id="printCreatorAr"></span><br>
                 أي إضافة أو كشط على هذه الوثيقة تعتبر لاغية<br>
                 تعتبر هذه الوثيقة الإلكترونية مستوفية للإجراءات النظامية المتبعة بالغرفة<br>
                 <span style="color: red;">تنويه : النموذج صالح حتي <span id="printValidAr"></span></span>
             </div>
-            <div class="footer-en" style="flex: 1; text-align: left; direction: ltr; font-weight: bold;">
+            <div class="footer-en" style="flex: 1; text-align: left; direction: ltr; font-weight: bold; font-size: 9px;">
                 Created by <span id="printCreatorEn"></span><br>
                 Any addition or scraping on this document is considered void<br>
                 This electronic document fulfills the regular procedures followed by the Chamber<br>
                 <span style="color: red;">Note : Document Valid till <span id="printValidEn"></span></span>
             </div>
         </div>
-        <div class="print-page-num" style="text-align: center; background: #8ba4b9 !important; color: #fff !important; padding: 8px; margin-top: 30px; font-size: 12px; border-radius: 8px; font-weight: bold; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+        <div class="print-page-num" style="text-align: center; background: #8ba4b9 !important; color: #fff !important; padding: 6px; margin-top: 15px; font-size: 11px; border-radius: 8px; font-weight: bold; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
             1 / 1
         </div>
     </div>
