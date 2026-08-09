@@ -609,7 +609,9 @@ body {
         display: none !important;
     }
     .print-only {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column;
+        min-height: 98vh;
         position: relative;
         background: #fff;
         color: #000;
@@ -617,6 +619,10 @@ body {
         padding: 5px 20px;
         direction: rtl;
         font-family: Tahoma, Arial, sans-serif;
+    }
+    
+    .print-body {
+        flex: 1;
     }
     
     .print-header {
